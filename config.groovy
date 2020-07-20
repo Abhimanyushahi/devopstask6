@@ -1,7 +1,7 @@
 job('task6-job1') {
 	description('job1')
 		scm {
-			github('abhimanyushahi/index.html', 'master')
+			github('https://github.com/Abhimanyushahi/devopstask6.git', 'master')
 		}
 	steps {
         	shell("cp * -rvf /home/jenkins")
@@ -16,7 +16,7 @@ job('task6-job1') {
 job('task6-job2'){
 	description('job2')
 		scm {
-			github('abhimanyushahi.git', 'master')
+			github('https://github.com/Abhimanyushahi/devopstask6.git', 'master')
 		}
 		triggers { 
                 	upstream('task6-job1', 'SUCCESS')
