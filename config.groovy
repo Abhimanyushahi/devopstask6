@@ -4,7 +4,7 @@ job('task6-job1') {
 			github('https://github.com/Abhimanyushahi/devopstask6.git', 'master')
 		}
 	steps {
-        	shell("cp . * -rvf /home/jenkins")
+        	shell("sudo cp . * -rvf /home/jenkins")
 		}
 		triggers {
                 	scm('* * * * * ')
