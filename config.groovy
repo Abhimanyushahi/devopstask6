@@ -12,6 +12,7 @@ job('task6-job1') {
 		triggers { 
                 	upstream('Admin job(seed)', 'SUCCESS')
                }
+}
 
 job('task6-job2'){
 	description('job2')
