@@ -4,7 +4,7 @@ job('task6-job1') {
 			github('https://github.com/Abhimanyushahi/devopstask6.git', 'master')
 		}
 	steps {
-        	shell("cp * -rvf /home/jenkins")
+        	shell("cp . * -rvf /home/jenkins")
 		}
 		triggers {
                 	scm('* * * * * ')
@@ -47,7 +47,7 @@ job('task6-job3'){
                          }
 	steps {
         	shell('''
-        	status=$(curl -o /dev/null -s -w "%(http_code)" http://'192.168.43.5:30002)
+        	status=$(curl -o /dev/null -s -w "%(http_code)" http://'172.17.0.2:30002)
         	if [[ $status == 200 ]]
         	then 
          	exit 0
