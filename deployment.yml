@@ -47,7 +47,7 @@ spec:
     tier: web
   spec: 
    containers:
-   - image: httpd:latest   
+   - image: vimal13/apache-webserver-php   
      name: httpd
      ports:
      - containerPort: 80
