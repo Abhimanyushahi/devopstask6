@@ -5,15 +5,16 @@ metadata:
  labels:
   app: httpd 
 spec:
+ selector:
+  app: httpd
+  tier: web
+ type: NodePort
  ports:
   - nodePort: 30002
     port: 80
     targetPort: 80 
- selector:
-  app: httpd
-  tier: web
- type: NodePort 
-
+ 
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -26,7 +27,7 @@ spec:
  resources:
   requests:
    storage: 1Gi
-
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata: 
