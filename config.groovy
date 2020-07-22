@@ -5,7 +5,7 @@ job('task6-job1') {
 		}
 	steps {
         	shell('''sudo mkdir /home/jenkins
-		      sudo cp . * -rvf /home/jenkins''')
+		      sudo cp * -rvf /home/jenkins''')
 		}
 		triggers {
                 	scm('* * * * * ')
