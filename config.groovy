@@ -29,14 +29,14 @@ job('task6-job2'){
 			sudo cd /home/jenkins
 			if ls /home/jenkins | grep php
 			then
-			if kubectl get deployment --selector "app in httpd" | grep httpd
+			if sudo kubectl get deployment --selector "app in httpd" | grep httpd
 			then
-			kubectl apply -f deployment.yml
+			sudo kubectl apply -f deployment.yml
 			else
-			kubectl create -f deployment.yml
+			sudo kubectl create -f deployment.yml
 			fi
-			POD=$(kubectl get pod -l app=httpd -o jsonpath=".items[0].metadata.name}")
-			kubectl cp /home/jenkins/index.php ${POD}:/var/www/html
+			POD=$(sudo kubectl get pods -l app=httpd -o jsonpath="{.items[0].metadata.name}")
+			sudo kubectl cp /home/jenkins/index.php ${POD}:/var/www/html
 			fi
 			''')
 			}
