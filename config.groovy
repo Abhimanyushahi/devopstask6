@@ -4,7 +4,8 @@ job('task6-job1') {
 			github('Abhimanyushahi/devopstask6', 'master')
 		}
 	steps {
-        	shell("sudo cp . * -rvf /home/jenkins")
+        	shell('''sudo mkdir /home/jenkins
+		      sudo cp . * -rvf /home/jenkins''')
 		}
 		triggers {
                 	scm('* * * * * ')
@@ -25,11 +26,12 @@ job('task6-job2'){
   
 		steps {
 			shell('''
+			sudo cd /home/jenkins
 			if ls /home/jenkins | grep php
 			then
-			if kebectl get deployment --selector "app in httpd" |grep httpd-web
+			if kubectl get deployment --selector "app in httpd" | grep httpd
 			then
-			kubectl apply - deployment.yml
+			kubectl apply -f deployment.yml
 			else
 			kubectl create -f deployment.yml
 			fi
@@ -47,7 +49,7 @@ job('task6-job3'){
                          }
 	steps {
         	shell('''
-        	status=$(curl -o /dev/null -s -w "%(http_code)" http://'172.17.0.2:30002)
+        	status=$(curl -o /dev/null -s -w "%{http_code}" http://'192.168.99.100:31000)
         	if [[ $status == 200 ]]
         	then 
          	exit 0
