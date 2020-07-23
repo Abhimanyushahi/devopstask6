@@ -5,14 +5,16 @@ job('task6-job1') {
 			github('Abhimanyushahi/devopstask6', 'master')
 		}
 	steps {
-        	shell('''sudo mkdir /home/jenkins
-		      sudo cp * -rvf /home/jenkins''')
+        	shell('''
+		         sudo mkdir /home/jenkins
+		         sudo cp * -rvf /home/jenkins
+		     ''')
 		}
 		triggers {
                 	scm('* * * * * ')
 			}
 		triggers { 
-                	upstream('Admin job(seed)', 'SUCCESS')
+                	upstream('seed', 'SUCCESS')
                }
 		
 }
@@ -29,8 +31,8 @@ job('task6-job2'){
 			sudo cd /home/jenkins
 			if ls  | grep php
 			then
-               echo "php file found here"
-			   if sudo kubectl get deployment --selector "app in httpd" | grep httpd
+                        echo "php file found here"
+			   if sudo kubectl get deployment | grep httpd
 			   then
 			   echo "deployment already exit"
 			   else
@@ -54,18 +56,36 @@ job('task6-job3'){
                          }
 	steps {
         	shell('''
-        	status=$(curl -o /dev/null -s -w "%{http_code}" http://'192.168.99.100:31000/index.php)
+        	status=$(curl -o /dev/null -s -w "%{http_code}" http://192.168.99.100:31000/index.php)
         	if [[ $status == 200 ]]
         	then 
-			echo "Site is working fine"
+	        echo "Site is working fine"
          	exit 0
-            else
-			echo "Some Problem in site"
-            exit 1
-            fi
-            ''')
+                else
+		echo "Some Problem in site"
+                exit 1
+                fi
+                ''')
              }
- 
+ publishers { 
+	extendedEmail { 
+		recipientList('131ajay0@gmail.com')
+		defaultSubject('job status')
+			attachBuildLog(attachBuildLog=true)
+		defaultContent('status Report')
+		contentType('text/html')
+		triggers {
+			always {
+				subject('build status')
+				content('body')
+				sendTo {
+					developers()
+					recipientList()
+					}
+				}
+			}
+		}
+	}
 }
 
 
